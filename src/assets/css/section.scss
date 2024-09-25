@@ -1,0 +1,110 @@
+main {
+    background: #f3f3f3;
+    min-height: 100vh;
+    
+    .container-inner {
+        background: white;
+        height: 100vh;
+        max-width: 768px;
+        margin: 0 auto;
+        width: 100%;
+        overflow: hidden;
+        // padding: 14px;
+
+        > section {
+            &.actions {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translate(calc(-50% - 10px), 0);
+                background: white;
+                padding: 20px;
+                width: calc(100% - 20px);
+                margin: 0 10px;
+                max-width: calc(768px - 40px);
+                border-radius: 8px;
+                color: white;
+                border: 1px solid rgba(128, 128, 128, 0.41);
+
+                > div {
+                    display: flex;
+                    gap: 8px;
+                    margin-bottom: 8px;
+
+                    > input {
+                        text-align: center;
+                        width: 100%;
+                        flex: 1;
+                        padding: 10px;
+                        border-radius: 8px;
+                        border: none;
+                        border: 1px solid rgb(128 128 128 / 41%);
+                        font-size: 14px;
+                    }
+                }
+
+                > button {
+                    cursor: pointer;
+                    background: black;
+                    color: white;
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 8px;
+                }
+            }
+            &.list {
+                padding: 0 10px 140px 10px;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    border-radius: 8px;
+
+                    &:first-child {
+                        background: none;
+                        
+                        .target {
+                            flex: 1;
+                            padding: 5px 0;
+                            text-align: center;
+                            font-size: 14px;
+                            color: #9394a8;
+                            font-weight: 600;
+                        }
+                    }
+
+                    &:nth-child(even) {
+                        background: #f2f5f6;
+                    }
+
+                    .target {
+                        flex: 1;
+                        padding: 10px;
+                        text-align: center;
+                        width: calc(100% / 7);
+                    }
+
+                    img {
+                        object-fit: cover;
+                        padding: 0 !important;
+                        aspect-ratio: 1/1;
+                        border-radius: 8px;
+                    }
+
+                    a {
+                        text-decoration: underline;
+                    }
+
+                    &.no-item {
+                        cursor: default;
+                        color: gray;
+                        opacity: 0.5;
+                        background: none;
+                        border: 1px solid gray;
+                    }
+                }
+            }
+        }
+    }
+}
