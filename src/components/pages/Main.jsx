@@ -110,9 +110,11 @@ const Main = () => {
             {/* 헤더 END */}
 
             {/* 메인 */}
-            <main>
-                
+            <main>          
                 <div className="container-inner">
+                    <section>
+                        수정상태 : 2024.09.26 18:04:47
+                    </section>
                     {/* 섹션 : 입력 */}
                     <section className="actions">
                         <div>
