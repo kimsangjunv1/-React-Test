@@ -4,115 +4,157 @@ main {
     
     .container-inner {
         background: white;
-        max-width: 768px;
+        max-width: 1280px;
+        // max-width: 768px;
         margin: 0 auto;
         width: 100%;
         min-height: 100vh;
+        padding: 10px 0;
 
         > section {
-            &.time {
+            &.update {
                 width: 100%;
+                margin-bottom: 14px;
                 
                 > p {
-                    width: 100%;
-                    color: #9394a8b5;
+                    color: rgb(180, 193, 197);
                     font-size: 14px;
                     text-align: center;
-                    padding: 10px 0;
+                    padding: 12px 0;
                     font-weight: 600;
+                    background: #f3f5f6;
+                    margin: 0 10px;
+                    border-radius: 8px;
                 }
             }
             
-            &.actions {
-                position: sticky;
-                top: 10px;
-                background: #ffffffa8;
-                padding: 20px;
-                backdrop-filter: blur(20px);
-                margin: 0 10px 32px 10px;
-                border-radius: 8px;
-                border: 1px solid #f3f5f6;
-
-                > div {
-                    display: flex;
-                    gap: 8px;
-                    margin-bottom: 8px;
-
-                    > input {
-                        text-align: center;
-                        width: 100%;
-                        flex: 1;
-                        padding: 10px;
-                        border-radius: 8px;
-                        border: none;
-                        border: 1px solid rgb(128 128 128 / 41%);
-                        font-size: 14px;
-                    }
-                }
-
-                > button {
-                    cursor: pointer;
-                    background: black;
-                    color: white;
-                    width: 100%;
-                    padding: 10px;
-                    border-radius: 8px;
-                }
-            }
-
-            &.list {
+            &.contents {
                 display: flex;
-                flex-direction: column;
-                gap: 12px;
-                padding: 0 10px 140px 10px;
+                justify-content: space-between;
+                margin: 0 12px;
+                gap: 24px;
 
-                .item {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    border-radius: 8px;
+                section {
+                    &.actions {
+                        position: sticky;
+                        top: 12px;
+                        height: fit-content;
 
-                    &:first-child {
-                        background: none;
-                        
-                        .target {
-                            flex: 1;
-                            padding: 5px 0;
-                            text-align: center;
-                            font-size: 14px;
-                            color: #9394a8;
-                            font-weight: 600;
+                        > div {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+                            margin-bottom: 8px;
+
+                            padding: 12px;
+                            border-radius: 8px;
+                            border: 1px solid #f3f5f6;
+
+                            input {
+                                text-align: left;
+                                width: 100%;
+                                flex: 1;
+                                padding: 12px;
+                                border-radius: 8px;
+                                border: none;
+                                border: 1px solid rgb(128 128 128 / 41%);
+                                font-size: 14px;
+                            }
+
+                            .divide {
+                                position: relative;
+                                display: flex;
+
+                                input {
+                                    padding-right: 70px;
+                                }
+
+                                select {
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 5px;
+                                    transform: translate(0, -50%);
+                                    font-size: 12px;
+                                    width: 60px;
+                                    text-wrap: wrap;
+                                    text-align: center;
+                                    border: 1px solid rgba(128, 128, 128, 0.41);
+                                    border-radius: 4px;
+                                    background: none;
+                                    height: calc(100% - 10px);
+                                    color: #61737b;
+                                }
+                            }
+                        }
+
+                        > button {
+                            cursor: pointer;
+                            background: black;
+                            color: white;
+                            width: 100%;
+                            padding: 12px;
+                            border-radius: 8px;
                         }
                     }
 
-                    &:nth-child(even) {
-                        background: #f2f5f6;
-                    }
-
-                    .target {
+                    &.list {
                         flex: 1;
-                        padding: 10px;
-                        text-align: center;
-                        width: calc(100% / 7);
-                    }
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                        // padding: 0 12px 140px 12px;
 
-                    img {
-                        object-fit: cover;
-                        padding: 0 !important;
-                        aspect-ratio: 1/1;
-                        border-radius: 8px;
-                    }
+                        .item {
+                            grid-template-columns: repeat(8, 1fr);
+                            grid-column-gap: 8px;
+                            align-items: center;
+                            justify-content: center;
+                            display: grid;
+                            border-radius: 8px;
 
-                    a {
-                        text-decoration: underline;
-                    }
+                            &:first-child {
+                                background: none;
+                                
+                                .target {
+                                    color: #9394a8;
+                                    font-weight: 600;
+                                }
+                            }
 
-                    &.no-item {
-                        cursor: default;
-                        color: gray;
-                        opacity: 0.5;
-                        background: none;
-                        border: 1px solid gray;
+                            &:nth-child(even) {
+                                background: #f2f5f6;
+                            }
+
+                            .target {
+                                width: 100%;
+                                cursor: default;
+                                flex: 1;
+                                text-align: center;
+                                // width: calc(100% / 7);
+                                color: #61737b;
+                                font-size: 14px;
+                                font-weight: 500;
+                            }
+
+                            img {
+                                object-fit: cover;
+                                padding: 6px;
+                                aspect-ratio: 1/1;
+                                border-radius: 12px;
+                            }
+
+                            a {
+                                text-decoration: underline;
+                            }
+
+                            &.no-item {
+                                cursor: default;
+                                color: gray;
+                                opacity: 0.5;
+                                background: none;
+                                border: 1px solid gray;
+                            }
+                        }
                     }
                 }
             }

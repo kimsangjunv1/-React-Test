@@ -1,7 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()]
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://www.koreaexim.go.kr',  // 실제 API 서버 주소
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/site/program/financial/exchangeJSON/'),  // 경로 수정
+      },
+    },
+  },
 })
