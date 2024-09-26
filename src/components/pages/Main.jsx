@@ -215,7 +215,7 @@ const Main = () => {
                                 <ComponentsInput type={"string"} placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                                 <div className="divide">
                                     <ComponentsInput type={"number"} placeholder={"가격"} func={(e) => setTargetPrice(e.target.value)} />
-                                    {/* <ComponentsSelect data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setTargetCurrency(e)} /> */}
+                                    {currencyList && <ComponentsSelect data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setTargetCurrency(e)} />}
                                 </div>
                                 <ComponentsInput type={"number"} placeholder={"배송비"} func={(e) => setTargetDeliveryFee(e.target.value)} />
                                 <ComponentsInput type={"number"} placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(e.target.value)} />
