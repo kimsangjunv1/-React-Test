@@ -564,7 +564,7 @@ const Main = () => {
                             {list.length ? list.map((e, i) =>
                                 <div className="item" key={i}>
                                     <img className="target" src={e.imgSrc} alt={e.name} />
-                                    <a className="target" href={e.address}>바로가기</a>
+                                    <a className="target" href={e.address} target="_blank">바로가기</a>
                                     <p className="target">{e.name}</p>
                                     <p className="target">
                                         {e.price} {e.currency} <br/>
