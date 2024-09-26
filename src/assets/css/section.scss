@@ -1,30 +1,22 @@
 main {
-    background: #f3f3f3;
-    min-height: 100vh;
+    background: #f2f5f6;
     
     .container-inner {
         background: white;
-        height: 100vh;
         max-width: 768px;
         margin: 0 auto;
         width: 100%;
-        overflow: hidden;
-        // padding: 14px;
 
         > section {
             &.actions {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translate(calc(-50% - 10px), 0);
-                background: white;
+                position: sticky;
+                top: 10px;
+                background: #ffffffa8;
                 padding: 20px;
-                width: calc(100% - 20px);
-                margin: 0 10px;
-                max-width: calc(768px - 40px);
+                backdrop-filter: blur(20px);
+                margin: 0 10px 32px 10px;
                 border-radius: 8px;
-                color: white;
-                border: 1px solid rgba(128, 128, 128, 0.41);
+                border: 1px solid #f3f5f6;
 
                 > div {
                     display: flex;
