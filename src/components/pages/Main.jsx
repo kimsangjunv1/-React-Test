@@ -112,9 +112,10 @@ const Main = () => {
             {/* 메인 */}
             <main>          
                 <div className="container-inner">
-                    <section>
-                        수정상태 : 2024.09.26 18:04:47
+                    <section className="time">
+                        <p>수정상태 : 2024.09.26 18:04:47</p>
                     </section>
+                    
                     {/* 섹션 : 입력 */}
                     <section className="actions">
                         <div>
