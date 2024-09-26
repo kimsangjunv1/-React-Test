@@ -13,27 +13,6 @@ const Main = () => {
     const [ targetSubPrice, setTargetSubPrice ] = useState(0);
     const [ targetDeliveryFee, setTargetDeliveryFee ] = useState(0);
 
-    let tempData = [
-        {
-            "imgSrc":"https://4elementos.com/92445-large_default/carhartt-wip-regular-cargo-pant-i03047589gd32.jpg",
-            "address":"https://4elementos.com/en/trousers/35072-carhartt-wip-regular-cargo-pant-i03047589gd32.html",
-            "price":"170,000",
-            "subPrice":"12,400",
-            "benefit":"15,000",
-            "name":"카하트 WIP 레귤러 카고 팬츠",
-            "deliveryFee":"13,000",
-        },
-        {
-            "imgSrc":"https://www.gap.com/webcontent/0056/690/793/cn56690793.jpg",
-            "address":"https://www.gap.com/browse/product.do?pid=5235631620005&cid=1127938&pcid=1127938&vid=1&cpos=47&kcid=CategoryIDs%3D1127938&ctype=Listing&cpid=res638629356865328162#pdp-page-content",
-            "price":"45,000",
-            "subPrice":"11,000",
-            "benefit":"15,000",
-            "name":"빈티지 소프트 크롭 후드티",
-            "deliveryFee":"9,000",
-        }
-    ]
-
     // 함수 : 현재 입력된 값을 기준으로 삽입
     const setOnList = () => {
         if (checkStateValue()) {
@@ -115,7 +94,6 @@ const Main = () => {
 
     // 로컬스토리지에서 값이 있다면 가져온 후 list에 삽입
     useEffect(() => {
-        setLocalStorage(tempData);
         let data = JSON.parse(getLocalStorage("data_note"));
 
         if (data) {
