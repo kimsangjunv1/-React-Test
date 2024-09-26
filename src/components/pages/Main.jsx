@@ -574,15 +574,15 @@ const Main = () => {
                                         {e.deliveryFee} {e.currency} <br/>
                                         {getCurrencyToKRW(e.deliveryFee, e.currency)} 원
                                     </p>
-                                    <p className="target">{e.subPrice} 원</p>
-                                    <p className="target">{e.benefit} 원</p>
-                                    <p className="target">
-                                        {
+                                    <p className="target">{setCommaOnPrice(e.subPrice)} 원</p>
+                                    <p className="target">{setCommaOnPrice(e.benefit)} 원</p>
+                                    <p className="target">{
+                                        setCommaOnPrice(
                                             setNumber(e.benefit)
                                             + setNumber(e.subPrice)
                                             + setNumber(e.deliveryFee)
                                             + getCurrencyToKRW(e.price, e.currency)
-                                        }
+                                        )} 원
                                     </p>
                                 </div>
                             ) : (
