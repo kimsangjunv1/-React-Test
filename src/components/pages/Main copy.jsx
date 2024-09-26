@@ -507,14 +507,14 @@ const Main = () => {
     }
 
     // 함수 : 원화를 구해줌
-    const getCurrencyToKRW = (cost, type) => {
+    const getCurrencyToKRW = (target, type) => {
         const selectCurrency = currencyList.filter(e => e.cur_unit == type);
         
         if (selectCurrency.length) {
+            const cost = setNumber(target);
             const exchangeRate = setNumber(selectCurrency[0].deal_bas_r); // 환율 정보
-            const gijun = selectCurrency[0].cur_unit.includes("(100)");
-            const final = Math.round((cost / (gijun ? 100 : 1)) * exchangeRate);
-            return final;
+            
+            return cost * exchangeRate;
         }
     }
 
@@ -570,10 +570,7 @@ const Main = () => {
                                         {e.price} {e.currency} <br/>
                                         {getCurrencyToKRW(e.price, e.currency)} 원
                                     </p>
-                                    <p className="target">
-                                        {e.deliveryFee} {e.currency} <br/>
-                                        {getCurrencyToKRW(e.deliveryFee, e.currency)} 원
-                                    </p>
+                                    <p className="target">{e.deliveryFee} 원</p>
                                     <p className="target">{e.subPrice} 원</p>
                                     <p className="target">{e.benefit} 원</p>
                                     <p className="target">
@@ -601,12 +598,12 @@ const Main = () => {
                                 <ComponentsInput type={"string"} placeholder={"주소"} func={(e) => {setTargetAddress(e.target.value)}} />
                                 <ComponentsInput type={"string"} placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                                 <div className="divide">
-                                    <ComponentsInput type={"number"} placeholder={"가격"} func={(e) => setTargetPrice(e.target.value)} />
+                                    <ComponentsInput type={"number"} placeholder={"가격"} func={(e) => setTargetPrice(setCommaOnPrice(e.target.value))} />
                                     <ComponentsSelect data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setTargetCurrency(e)} />
                                 </div>
-                                <ComponentsInput type={"number"} placeholder={"배송비"} func={(e) => setTargetDeliveryFee(e.target.value)} />
-                                <ComponentsInput type={"number"} placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(e.target.value)} />
-                                <ComponentsInput type={"number"} placeholder={"마진"} func={(e) => setTargetBenefit(e.target.value)} />
+                                <ComponentsInput type={"number"} placeholder={"배송비"} func={(e) => setTargetDeliveryFee(setCommaOnPrice(e.target.value))} />
+                                <ComponentsInput type={"number"} placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(setCommaOnPrice(e.target.value))} />
+                                <ComponentsInput type={"number"} placeholder={"마진"} func={(e) => setTargetBenefit(setCommaOnPrice(e.target.value))} />
                             </div>
 
                             <ComponentsButton title={"확인"} func={(e) => setOnList()}/>
