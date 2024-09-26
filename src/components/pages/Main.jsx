@@ -112,12 +112,13 @@ const Main = () => {
             {/* 메인 */}
             <main>
                 <div className="container-inner">
+                    <p>{JSON.stringify(list)}</p>
                     {/* 섹션 : 입력 */}
                     <section className="actions">
                         <div>
                             <ComponentsInput placeholder={"이미지 주소"} func={(e) => setTargetImage(e.target.value)} />
-                            <ComponentsInput placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                             <ComponentsInput placeholder={"주소"} func={(e) => {setTargetAddress(e.target.value)}} />
+                            <ComponentsInput placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                             <ComponentsInput placeholder={"가격"} func={(e) => setTargetPrice(setCommaOnPrice(e.target.value))} />
                             <ComponentsInput placeholder={"배송비"} func={(e) => setTargetDeliveryFee(setCommaOnPrice(e.target.value))} />
                             <ComponentsInput placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(setCommaOnPrice(e.target.value))} />
