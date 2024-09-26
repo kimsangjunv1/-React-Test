@@ -87,10 +87,10 @@ const Main = () => {
 
     // 로컬스토리지에서 값이 있다면 가져온 후 list에 삽입
     useEffect(() => {
-        let isAvailiable = JSON.parse(getLocalStorage("data_note"));
+        let data = JSON.parse(getLocalStorage("data_note"));
 
-        if (isAvailiable) {
-            setList(good);
+        if (data) {
+            setList(data);
         }
     }, []);
 
