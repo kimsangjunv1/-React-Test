@@ -8,6 +8,7 @@ export default defineConfig({
       '/api': {
         target: 'https://www.koreaexim.go.kr',  // 실제 API 서버 주소
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/site/program/financial/exchangeJSON/'),  // 경로 수정
       },
     },
