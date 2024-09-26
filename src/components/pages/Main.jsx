@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { getCurrentExchange } from "../../api/api_korea_exchange";
 
 const Main = () => {
     const [ list, setList ] = useState([]);
@@ -85,12 +86,20 @@ const Main = () => {
         return localStorage.getItem(target);
     };
 
+    const test = () => {
+        let goood = getCurrentExchange();
+
+        console.log("과연 : ", goood);
+    }
+
     // 로컬스토리지에서 값이 있다면 가져온 후 list에 삽입
     useEffect(() => {
         let data = JSON.parse(getLocalStorage("data_note"));
 
         if (data) {
             setList(data);
+
+            // test();
         }
     }, []);
 
@@ -110,9 +119,9 @@ const Main = () => {
                             <ComponentsInput placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                             <ComponentsInput placeholder={"주소"} func={(e) => {setTargetAddress(e.target.value)}} />
                             <ComponentsInput placeholder={"가격"} func={(e) => setTargetPrice(setCommaOnPrice(e.target.value))} />
+                            <ComponentsInput placeholder={"배송비"} func={(e) => setTargetDeliveryFee(setCommaOnPrice(e.target.value))} />
                             <ComponentsInput placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(setCommaOnPrice(e.target.value))} />
                             <ComponentsInput placeholder={"마진"} func={(e) => setTargetBenefit(setCommaOnPrice(e.target.value))} />
-                            <ComponentsInput placeholder={"배송비"} func={(e) => setTargetDeliveryFee(setCommaOnPrice(e.target.value))} />
                         </div>
                         <ComponentsButton title={"확인"} func={(e) => setOnList()}/>
                     </section>
@@ -130,12 +139,12 @@ const Main = () => {
                             <p className="target">마진</p>
                         </div>
                         {list.length ? list.map((e, i) =>
-                            <div className="item">
+                            <div className="item" key={i}>
                                 <img className="target" src={e.imgSrc} alt={e.name} />
                                 <a className="target" href={e.address}>바로가기</a>
                                 <p className="target">{e.name}</p>
-                                <p className="target">{e.deliveryFee}</p>
                                 <p className="target">{e.price}</p>
+                                <p className="target">{e.deliveryFee}</p>
                                 <p className="target">{e.subPrice}</p>
                                 <p className="target">{e.benefit}</p>
                             </div>
