@@ -1,6 +1,4 @@
-import React, { Fragment } from "react";
-
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const Main = () => {
     const [ list, setList ] = useState([]);
@@ -31,14 +29,14 @@ const Main = () => {
             ];
 
             setList(data);
-            setListOnLocalStorage(data);
+            setLocalStorage(data);
             setStateCleanUp();
 
             alert("저장되었습니다.");
         } else {
             alert("값을 다시 확인해주세요.");
         }
-    }
+    };
 
     // 함수 : 현재 state 값 정리
     const setStateCleanUp = () => {
@@ -52,7 +50,7 @@ const Main = () => {
         setTargetBenefit(0);
         setTargetSubPrice(0);
         setTargetDeliveryFee(0);
-    }
+    };
 
     // 함수 : state 값 채워졌는지 확인
     const checkStateValue = () => {
@@ -65,22 +63,36 @@ const Main = () => {
         if (!isVisible(targetDeliveryFee)) return false;
 
         return true
-    }
+    };
 
     // 함수 : 값이 존재하는지
     const isVisible = (target) => {
         return target ? true : false;
-    }
+    };
 
     // 함수 : 천단위 콤마
     const setCommaOnPrice = (target) => {
         return target.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    }
+    };
 
     // 함수 : 로컬스토리지에 저장
-    const setListOnLocalStorage = (target) => {
+    const setLocalStorage = (target) => {
         return localStorage.setItem("data_note", JSON.stringify(target));
-    }
+    };
+
+    // 함수 : 로컬스토리지에서 가져오기
+    const getLocalStorage = (target) => {
+        return localStorage.getItem(target);
+    };
+
+    // 로컬스토리지에서 값이 있다면 가져온 후 list에 삽입
+    useEffect(() => {
+        let isAvailiable = JSON.parse(getLocalStorage("data_note"));
+
+        if (isAvailiable) {
+            setList(good);
+        }
+    }, []);
 
     return (
         <Fragment>
@@ -145,12 +157,14 @@ const Main = () => {
     );
 };
 
+// 공통 컴포넌트 : 버튼
 const ComponentsButton = ({ title, func }) => {
     return (
         <button onClick={(e) => func(e)}>{title}</button>
     )
 }
 
+// 공통 컴포넌트 : 인풋
 const ComponentsInput = ({ placeholder, func }) => {
     return (
         <input type="text" placeholder={placeholder} onInput={(e) => {func(e)}} />
