@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { getCurrentExchange } from "../../api/api_korea_exchange";
+import { currentCurrencyList } from "../utils/current_currency_list";
 
 const Main = () => {
     const [ list, setList ] = useState([]);
@@ -64,6 +65,7 @@ const Main = () => {
         if (!isVisible(targetAddress)) return false;
         if (!isVisible(targetBenefit)) return false;
         if (!isVisible(targetSubPrice)) return false;
+        if (!isVisible(targetCurrency)) return false;
         if (!isVisible(targetDeliveryFee)) return false;
 
         return true
@@ -101,6 +103,12 @@ const Main = () => {
     // 함수 : 환율정보 가져옴
     const getCurrentCurrency = async() => {
         let data = await getCurrentExchange();
+
+        // 임시 : 20240922 데이터 삽입
+        if (data == undefined) {
+            console.log("undefined 네요", data);
+            data = currentCurrencyList
+        }
 
         setSessionStorage("data_current_currency", data);
         setCurrencyList(data);
@@ -256,7 +264,7 @@ const ComponentsSelect = ({ data, placeholder, id, func }) => {
         <Fragment>
             {/* <label for="currency">통화 선택:</label> */}
             <select id="currency" onChange={(e) => func(e.target.value)}>
-                <option selected value="">통화 선택</option>
+                <option defaultValue="" value="">통화 선택</option>
 
                 {data.map((e, i) => 
                     <option value={e.cur_unit} key={i}>{e.cur_nm}({e.cur_unit})</option>
