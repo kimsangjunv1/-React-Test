@@ -5,12 +5,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
-        target: 'https://www.koreaexim.go.kr',  // 실제 API 서버 주소
+      '/site/program/financial/exchangeJSON': {
+        target: 'https://www.koreaexim.go.kr',
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/site/program/financial/exchangeJSON/'),  // 경로 수정
-      },
-    },
-  },
+        rewrite: (path) => path.replace(/^\/site\/program\/financial\/exchangeJSON/, '/site/program/financial/exchangeJSON')
+      }
+    }
+  }
 })
