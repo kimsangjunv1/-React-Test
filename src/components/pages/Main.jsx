@@ -368,6 +368,7 @@ const Main = () => {
                                         <p>환율을 선택해주세요.</p>
                                     </Fragment>
                                  )}
+                                 <p>환율 DB : 2024-10-15</p>
                             </div>
                             {/* 간단한 환율 계산 폼 END */}
                         </section>
