@@ -2,13 +2,12 @@ import axios from '../components/utils/axios';
 
 export const getCurrentExchange = async () => {
     try {
-        const res = await axios.get("", {
-        params: {
-            authkey: import.meta.env.VITE_APP_KOR_EXCHANGE_KEY,
-            data: "AP01",
-            searchdate: "20180102",
-        }
-        });
+        const params = {
+            base: "KRW",
+            symbols: "JPY,USD,AED,AUD,CAD,CHF,CNH,DKK,EUR,GBP,HKD,KRW,NOK,NZD,SEK,SGD,THB"
+        };
+
+        const res = await axios.get("2024-10-14", {params});
 
         return res.data;
     } catch (error) {

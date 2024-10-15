@@ -1,6 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
 import { getCurrentExchange } from "../../api/api_korea_exchange";
-import { currentCurrencyList } from "../utils/current_currency_list";
 
 const Main = () => {
     const [ list, setList ] = useState([]);
@@ -57,6 +56,43 @@ const Main = () => {
         setTargetDeliveryFee(0);
     };
 
+    // 함수 : 환율정보 가져옴
+    const getCurrentCurrency = async() => {
+        let data = await getCurrentExchange();
+
+        if (data) {
+            let mapping = mappingCurrencyList(data);
+
+            setSessionStorage("data_current_currency", mapping);
+            setCurrencyList(mapping);
+        } else {
+            console.log("환율정보를 받아오지 못했습니다.")
+        }
+    }
+    
+    // 함수 : 원화를 구해줌
+    const getCurrencyToKRW = (cost, type) => {
+        const selectCurrency = currencyList.filter(e => e.cur_unit == type);
+        
+        if (selectCurrency.length) {
+            const exchangeRate = setNumber(selectCurrency[0].deal_bas_r); // 환율 정보
+            const standard = selectCurrency[0].cur_unit.includes("(100)");
+            const final = Math.round((cost / (standard ? 100 : 1)) * exchangeRate);
+            
+            return final;
+        }
+    }
+    
+    // 함수 : 순수 숫자로 변환
+    const setNumber = (target) => {
+        return Number(target);
+    }
+
+    // 함수 : 입력한 금액을 기준으로 환율을 적용해 환산한 값을 반환
+    const calcCurrency = (currency, amount = 1) => {
+        return amount / currency;
+    }
+
     // 함수 : state 값 채워졌는지 확인
     const checkStateValue = () => {
         if (!isVisible(targetName)) return false;
@@ -100,54 +136,128 @@ const Main = () => {
         return sessionStorage.getItem(target);
     };
 
-    // 함수 : 환율정보 가져옴
-    const getCurrentCurrency = async() => {
-        let data = await getCurrentExchange();
-
-        // 임시 : 20240922 데이터 삽입
-        if (data == undefined) {
-            console.log("undefined 네요", data);
-            data = currentCurrencyList
-        }
-
-        setSessionStorage("data_current_currency", data);
-        setCurrencyList(data);
-    }
-
-    // 함수 : 순수 숫자로 변환
-    const setNumber = (target) => {
-        return Number(target.replace(",",""))
-    }
-
-    // 함수 : 원화를 구해줌
-    const getCurrencyToKRW = (cost, type) => {
-        const selectCurrency = currencyList.filter(e => e.cur_unit == type);
+    // 함수 : 받은 데이터 가공
+    const mappingCurrencyList = (data) => {
+        const filter = data.rates;  // 임시 데이터
         
-        if (selectCurrency.length) {
-            const exchangeRate = setNumber(selectCurrency[0].deal_bas_r); // 환율 정보
-            const standard = selectCurrency[0].cur_unit.includes("(100)");
-            const final = Math.round((cost / (standard ? 100 : 1)) * exchangeRate);
-
-            return final;
-        }
+        return [
+            {
+                "result": 1,
+                "cur_unit": "JPY(100)",
+                "deal_bas_r": calcCurrency(filter.JPY, 100),
+                "cur_nm": "일본 엔"
+            },
+            {
+                "result": 1,
+                "cur_unit": "USD",
+                "deal_bas_r": calcCurrency(filter.USD),
+                "cur_nm": "미국 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "AED",
+                "deal_bas_r": calcCurrency(filter.AED),
+                "cur_nm": "아랍에미리트 디르함"
+            },
+            {
+                "result": 1,
+                "cur_unit": "AUD",
+                "deal_bas_r": calcCurrency(filter.AUD),
+                "cur_nm": "호주 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "CAD",
+                "deal_bas_r": calcCurrency(filter.CAD),
+                "cur_nm": "캐나다 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "CHF",
+                "deal_bas_r": calcCurrency(filter.CHF),
+                "cur_nm": "스위스 프랑"
+            },
+            {
+                "result": 1,
+                "cur_unit": "CNH",
+                "deal_bas_r": calcCurrency(filter.CNH),
+                "cur_nm": "중국 위안"
+            },
+            {
+                "result": 1,
+                "cur_unit": "DKK",
+                "deal_bas_r": calcCurrency(filter.DKK),
+                "cur_nm": "덴마크 크로네"
+            },
+            {
+                "result": 1,
+                "cur_unit": "EUR",
+                "deal_bas_r": calcCurrency(filter.EUR),
+                "cur_nm": "유로"
+            },
+            {
+                "result": 1,
+                "cur_unit": "GBP",
+                "deal_bas_r": calcCurrency(filter.GBP),
+                "cur_nm": "영국 파운드"
+            },
+            {
+                "result": 1,
+                "cur_unit": "HKD",
+                "deal_bas_r": calcCurrency(filter.HKD),
+                "cur_nm": "홍콩 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "KRW",
+                "deal_bas_r": calcCurrency(filter.KRW),
+                "cur_nm": "한국 원"
+            },
+            {
+                "result": 1,
+                "cur_unit": "NOK",
+                "deal_bas_r": calcCurrency(filter.NOK),
+                "cur_nm": "노르웨이 크로네"
+            },
+            {
+                "result": 1,
+                "cur_unit": "NZD",
+                "deal_bas_r": calcCurrency(filter.NZD),
+                "cur_nm": "뉴질랜드 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "SEK",
+                "deal_bas_r": calcCurrency(filter.SEK),
+                "cur_nm": "스웨덴 크로나"
+            },
+            {
+                "result": 1,
+                "cur_unit": "SGD",
+                "deal_bas_r": calcCurrency(filter.SGD),
+                "cur_nm": "싱가포르 달러"
+            },
+            {
+                "result": 1,
+                "cur_unit": "THB",
+                "deal_bas_r": calcCurrency(filter.THB),
+                "cur_nm": "태국 바트"
+            },
+        ]
     }
 
-    // 로컬스토리지에서 값이 있다면 가져온 후 list에 삽입
     useEffect(() => {
         let data = JSON.parse(getLocalStorage("data_note"));
         let dataCurrency = getSessionStorage("data_current_currency");
 
+        // 세션에 환율 정보가 없다면 경우 환율정보를 받아오고 있다면 환율리스트에 삽입
         if (!dataCurrency) {
-            console.log("없네용",dataCurrency)
             getCurrentCurrency();
         } else {
-            console.log("있네용")
             setCurrencyList(JSON.parse(dataCurrency));
-        }
+        };
 
-        if (data) {
-            setList(data);
-        }
+        data && setList(data);
     }, []);
 
     return (
