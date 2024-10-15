@@ -1,6 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { getCurrentExchange } from "../../api/api_korea_exchange";
 
+import ButtonComponents from "../common/ButtonComponents";
+import InputComponents from "../common/InputComponents";
+import SelectComponents from "../common/SelectComponents";
+
 const Main = () => {
     const [ list, setList ] = useState([]);
     const [ currencyList, setCurrencyList ] = useState([]);
@@ -14,6 +18,10 @@ const Main = () => {
     const [ targetBenefit, setTargetBenefit ] = useState(0);
     const [ targetSubPrice, setTargetSubPrice ] = useState(0);
     const [ targetDeliveryFee, setTargetDeliveryFee ] = useState(0);
+
+    const [ examplePrice, setExamplePrice ] = useState(0);
+    const [ exampleCurrency, setExampleCurrency ] = useState(0);
+
 
     // 함수 : 현재 입력된 값을 기준으로 삽입
     const setOnList = () => {
@@ -275,6 +283,7 @@ const Main = () => {
                     </section>
                     {/* 업데이트 일자 END */}
                     
+                    {/* 내용 */}
                     <section className="contents">
                         {/* 섹션 : 리스트 */}
                         <section className="list">
@@ -327,23 +336,44 @@ const Main = () => {
 
                         {/* 섹션 : 입력 */}
                         <section className="actions">
-                            <div>
-                                <ComponentsInput type={"string"} placeholder={"이미지 주소"} func={(e) => setTargetImage(e.target.value)} />
-                                <ComponentsInput type={"string"} placeholder={"주소"} func={(e) => {setTargetAddress(e.target.value)}} />
-                                <ComponentsInput type={"string"} placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
+                            {/* 각종 정보 입력 폼 */}
+                            <div className="info">
+                                <InputComponents type={"string"} placeholder={"이미지 주소"} func={(e) => setTargetImage(e.target.value)} />
+                                <InputComponents type={"string"} placeholder={"주소"} func={(e) => {setTargetAddress(e.target.value)}} />
+                                <InputComponents type={"string"} placeholder={"이름"} func={(e) => setTargetName(e.target.value)} />
                                 <div className="divide">
-                                    <ComponentsInput type={"number"} placeholder={"가격"} func={(e) => setTargetPrice(e.target.value)} />
-                                    {currencyList && <ComponentsSelect data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setTargetCurrency(e)} />}
+                                    <InputComponents type={"number"} placeholder={"가격"} func={(e) => setTargetPrice(e.target.value)} />
+                                    {currencyList && <SelectComponents data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setTargetCurrency(e)} />}
                                 </div>
-                                <ComponentsInput type={"number"} placeholder={"배송비"} func={(e) => setTargetDeliveryFee(e.target.value)} />
-                                <ComponentsInput type={"number"} placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(e.target.value)} />
-                                <ComponentsInput type={"number"} placeholder={"마진"} func={(e) => setTargetBenefit(e.target.value)} />
+                                <InputComponents type={"number"} placeholder={"배송비"} func={(e) => setTargetDeliveryFee(e.target.value)} />
+                                <InputComponents type={"number"} placeholder={"배대지 가격"} func={(e) => setTargetSubPrice(e.target.value)} />
+                                <InputComponents type={"number"} placeholder={"마진"} func={(e) => setTargetBenefit(e.target.value)} />
                             </div>
+                            {/* 각종 정보 입력 폼 END */}
 
-                            <ComponentsButton title={"확인"} func={(e) => setOnList()}/>
+                            <ButtonComponents title={"확인"} func={(e) => setOnList()}/>
+
+                            {/* 간단한 환율 계산 폼 */}
+                            <div className="example">
+                                <div className="divide">
+                                    <InputComponents type={"number"} placeholder={"환율"} func={(e) => setExamplePrice(e.target.value)} />
+                                    {currencyList && <SelectComponents data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setExampleCurrency(e ? e : 0)} />}
+                                </div>
+                                {exampleCurrency ? (
+                                    <Fragment>
+                                        <p>{setCommaOnPrice(getCurrencyToKRW(examplePrice, exampleCurrency))} 원</p>
+                                    </Fragment>
+                                 ) : (
+                                    <Fragment>
+                                        <p>환율을 선택해주세요.</p>
+                                    </Fragment>
+                                 )}
+                            </div>
+                            {/* 간단한 환율 계산 폼 END */}
                         </section>
                         {/* 섹션 : 입력 END */}
                     </section>
+                    {/* 내용 END */}
                 </div>
             </main>
             {/* 메인 END */}
@@ -354,34 +384,5 @@ const Main = () => {
         </Fragment>
     );
 };
-
-// 공통 컴포넌트 : 버튼
-const ComponentsButton = ({ title, func }) => {
-    return (
-        <button onClick={(e) => func(e)}>{title}</button>
-    )
-}
-
-// 공통 컴포넌트 : 인풋
-const ComponentsInput = ({ type, placeholder, func }) => {
-    return (
-        <input type={type} placeholder={placeholder} onInput={(e) => {func(e)}} />
-    )
-}
-
-const ComponentsSelect = ({ data, placeholder, id, func }) => {
-    return (
-        <Fragment>
-            {/* <label for="currency">통화 선택:</label> */}
-            <select id="currency" onChange={(e) => func(e.target.value)}>
-                <option defaultValue="" value="">통화 선택</option>
-
-                {data.map((e, i) => 
-                    <option value={e.cur_unit} key={i}>{e.cur_nm}({e.cur_unit})</option>
-                )}
-            </select>
-        </Fragment>
-    )
-}
 
 export default Main;

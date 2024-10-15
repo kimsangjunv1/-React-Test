@@ -39,12 +39,14 @@ main {
                         position: sticky;
                         top: 12px;
                         height: fit-content;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
 
                         > div {
                             display: flex;
                             flex-direction: column;
                             gap: 8px;
-                            margin-bottom: 8px;
 
                             padding: 12px;
                             border-radius: 8px;
@@ -82,6 +84,16 @@ main {
                                     border-radius: 4px;
                                     background: none;
                                     height: calc(100% - 10px);
+                                    color: #61737b;
+                                }
+                            }
+
+                            &.example {
+                                > p {
+                                    font-size: 14px;
+                                    background: #f3f5f6;
+                                    padding: 12px;
+                                    border-radius: 8px;
                                     color: #61737b;
                                 }
                             }
