@@ -125,6 +125,11 @@ main {
                             border-radius: 8px;
 
                             &:first-child {
+                                position: sticky;
+                                top: 0;
+                                background: white !important;
+                                border-radius: 0;
+                                padding: 12px 0;
                                 background: none;
                                 
                                 .target {
@@ -156,6 +161,7 @@ main {
                             }
 
                             a {
+                                cursor: pointer !important;
                                 text-decoration: underline;
                             }
 
