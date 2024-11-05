@@ -146,7 +146,7 @@ const Main = () => {
 
     // 함수 : 받은 데이터 가공
     const mappingCurrencyList = (data) => {
-        const filter = data.rates;  // 임시 데이터
+        const filter = data.rates;
         
         return [
             {

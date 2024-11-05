@@ -7,7 +7,7 @@ export const getCurrentExchange = async () => {
             symbols: "JPY,USD,AED,AUD,CAD,CHF,CNH,DKK,EUR,GBP,HKD,KRW,NOK,NZD,SEK,SGD,THB"
         };
 
-        const res = await axios.get("2024-10-14", {params});
+        const res = await axios.get("2024-11-05", {params});
 
         return res.data;
     } catch (error) {
