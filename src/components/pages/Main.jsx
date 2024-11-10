@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, Suspense } from "react";
 import { getCurrentExchange } from "../../api/api_korea_exchange";
 
 import ButtonComponents from "../common/ButtonComponents";
@@ -8,6 +8,7 @@ import SelectComponents from "../common/SelectComponents";
 const Main = () => {
     const [ list, setList ] = useState([]);
     const [ currencyList, setCurrencyList ] = useState([]);
+    const [ currencyListDate, setCurrencyListDate ] = useState([]);
 
     const [ targetImage, setTargetImage ] = useState("");
     const [ targetName, setTargetName ] = useState("");
@@ -70,9 +71,12 @@ const Main = () => {
 
         if (data) {
             let mapping = mappingCurrencyList(data);
+            let date = data.date;
 
             setSessionStorage("data_current_currency", mapping);
+            setSessionStorage("data_current_currency_date", date);
             setCurrencyList(mapping);
+            setCurrencyListDate(date);
         } else {
             console.log("환율정보를 받아오지 못했습니다.")
         }
@@ -142,6 +146,11 @@ const Main = () => {
     // 함수 : 세션스토리지에서 가져오기
     const getSessionStorage = (target) => {
         return sessionStorage.getItem(target);
+    };
+
+    // 함수 : 세션스토리지에서 특정 키 값 지우기
+    const removeSessionStorage = (target) => {
+        return sessionStorage.removeItem(target);
     };
 
     // 함수 : 받은 데이터 가공
@@ -257,12 +266,14 @@ const Main = () => {
     useEffect(() => {
         let data = JSON.parse(getLocalStorage("data_note"));
         let dataCurrency = getSessionStorage("data_current_currency");
+        let dataCurrencyDate = getSessionStorage("data_current_currency_date");
 
         // 세션에 환율 정보가 없다면 경우 환율정보를 받아오고 있다면 환율리스트에 삽입
         if (!dataCurrency) {
             getCurrentCurrency();
         } else {
             setCurrencyList(JSON.parse(dataCurrency));
+            setCurrencyListDate(JSON.parse(dataCurrencyDate));
         };
 
         data && setList(data);
@@ -368,7 +379,7 @@ const Main = () => {
                                         <p>환율을 선택해주세요.</p>
                                     </Fragment>
                                  )}
-                                 <p>환율 DB : 2024-11-05</p>
+                                 <p>환율 DB : {currencyListDate}</p>
                             </div>
                             {/* 간단한 환율 계산 폼 END */}
                         </section>
