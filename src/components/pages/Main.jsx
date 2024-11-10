@@ -330,12 +330,22 @@ const Main = () => {
                                     <a className="target" href={e.address} target="_blank">바로가기</a>
                                     <p className="target">{e.name}</p>
                                     <p className="target">
-                                        {e.price} {e.currency} <br/>
-                                        {getCurrencyToKRW(e.price, e.currency)} 원
+                                        <i>
+                                            {e.price} {e.currency} <br/>
+                                        </i>
+                                        <strong>
+                                            {setCommaOnPrice(getCurrencyToKRW(e.price, e.currency))} 원
+                                        </strong>
+                                        <b>현재환율 기준</b>
                                     </p>
                                     <p className="target">
-                                        {e.deliveryFee} {e.currency} <br/>
-                                        {getCurrencyToKRW(e.deliveryFee, e.currency)} 원
+                                        <i>
+                                            {e.deliveryFee} {e.currency} <br/>
+                                        </i>
+                                        <strong>
+                                            {setCommaOnPrice(getCurrencyToKRW(e.deliveryFee, e.currency))} 원
+                                        </strong>
+                                        <b>현재환율 기준</b>
                                     </p>
                                     <p className="target">{setCommaOnPrice(e.subPrice)} 원</p>
                                     <p className="target">{setCommaOnPrice(e.benefit)} 원</p>

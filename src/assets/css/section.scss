@@ -156,6 +156,9 @@ main {
                             justify-content: center;
                             display: grid;
                             border-radius: 8px;
+                            border: 1px solid #4f7bff00;
+                            box-shadow: 0 0 0px 0px #eceff0;
+                            transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1) border-color, box-shadow;
 
                             &:first-child {
                                 position: sticky;
@@ -164,6 +167,7 @@ main {
                                 border-radius: 0;
                                 padding: 12px 0;
                                 background: none;
+                                border: none;
                                 
                                 .target {
                                     color: #9394a8;
@@ -172,7 +176,12 @@ main {
                             }
 
                             &:nth-child(even) {
-                                background: #f2f5f6;
+                                background: #f7f8f9;
+                            }
+
+                            &:hover {
+                                border-color: #4f7aff;
+                                box-shadow: 0 0 0px 4px #eceff0;
                             }
 
                             .target {
@@ -184,6 +193,32 @@ main {
                                 color: #61737b;
                                 font-size: 14px;
                                 font-weight: 500;
+                            }
+
+                            p {
+                                display: flex;
+                                flex-direction: column-reverse;
+                                align-items: center;
+                                gap: 2px;
+
+                                b {
+                                    font-size: 10px;
+                                    color: #9394a8;
+                                    font-weight: 500;
+                                }
+
+                                i {
+                                    font-size: 12px;
+                                    color: #9394a8;
+                                    border: 1px solid #9394a8;
+                                    border-radius: 100px;
+                                    padding: 1px 6px;
+                                }
+
+                                strong {
+                                    // color: #4f7aff;
+                                    font-weight: 500;
+                                }
                             }
 
                             img {
