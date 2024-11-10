@@ -85,6 +85,12 @@ main {
                                     background: none;
                                     height: calc(100% - 10px);
                                     color: #61737b;
+                                    cursor: pointer;
+                                    transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1) border-color;
+
+                                    &:hover {
+                                        border-color: #4f7aff;
+                                    }
                                 }
                             }
 
@@ -108,7 +114,7 @@ main {
                             padding: 12px;
                             border-radius: 8px;
                             filter: brightness(1);
-                            transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+                            transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1) filter;
 
                             &:nth-of-type(1) {
                                 background: #4f7aff;
