@@ -334,7 +334,7 @@ const Main = () => {
                                             {e.price} {e.currency} <br/>
                                         </i>
                                         <strong>
-                                            {setCommaOnPrice(getCurrencyToKRW(e.price, e.currency))} 원
+                                            {getCurrencyToKRW(e.price, e.currency)} 원
                                         </strong>
                                         <b>현재환율 기준</b>
                                     </p>
@@ -343,7 +343,7 @@ const Main = () => {
                                             {e.deliveryFee} {e.currency} <br/>
                                         </i>
                                         <strong>
-                                            {setCommaOnPrice(getCurrencyToKRW(e.deliveryFee, e.currency))} 원
+                                            {getCurrencyToKRW(e.deliveryFee, e.currency)} 원
                                         </strong>
                                         <b>현재환율 기준</b>
                                     </p>
