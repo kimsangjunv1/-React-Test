@@ -9,11 +9,13 @@ const Main = () => {
     const [ list, setList ] = useState([]);
     const [ currencyList, setCurrencyList ] = useState([]);
     const [ currencyListDate, setCurrencyListDate ] = useState([]);
+    const [ isNeedPopup, setIsNeedPopup ] = useState(false);
 
     const [ targetImage, setTargetImage ] = useState("");
     const [ targetName, setTargetName ] = useState("");
     const [ targetAddress, setTargetAddress ] = useState("");
     const [ targetCurrency, setTargetCurrency ] = useState("");
+    const [ targetDeleteItem, setTargetDeleteItem ] = useState("");
 
     const [ targetPrice, setTargetPrice ] = useState(0);
     const [ targetBenefit, setTargetBenefit ] = useState(0);
@@ -282,6 +284,7 @@ const Main = () => {
 
         setLocalStorage("data_note", filteringData);
         setList(filteringData);
+        setIsNeedPopup(false);
     }
 
     useEffect(() => {
@@ -309,6 +312,28 @@ const Main = () => {
             {/* 메인 */}
             <main>          
                 <div className="container-inner">
+                    {/* 팝업 */}
+                    {isNeedPopup &&
+                        <section className="popup">
+                            <div className="container-inner">
+                                <section>
+                                    <h2>알림</h2>
+                                    
+                                    <p>
+                                        <i>다음과 같은 항목이 삭제될 예정이에요<br/>지울 항목을 다시한번 확인해주세요</i>
+                                        <strong className="target">{targetDeleteItem}</strong>
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <button onClick={() => deleteItemOnList(targetDeleteItem)}>삭제</button>
+                                    <button onClick={() => setIsNeedPopup(false)}>닫기</button>
+                                </section>
+                            </div>
+                        </section>
+                    }
+                    {/* 팝업 END */}
+
                     {/* 업데이트 일자 */}
                     <section className="update">
                         <p>UPADATED AT 2024.09.26 18:04:47</p>
@@ -366,7 +391,10 @@ const Main = () => {
                                             + getCurrencyToKRW(e.price, e.currency)
                                         )} 원
                                     </p>
-                                    <ButtonComponents title={"지우기"} func={() => deleteItemOnList(e.name)}/>
+                                    <ButtonComponents title={"지우기"} func={() => {
+                                        setTargetDeleteItem(e.name)
+                                        setIsNeedPopup(true)
+                                    }}/>
                                 </div>
                             ) : (
                                 <div className="item no-item">
