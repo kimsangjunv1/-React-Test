@@ -247,7 +247,7 @@ const Main = () => {
 
     // 유틸 함수 : 천단위 콤마
     const setCommaOnPrice = (target) => {
-        return target.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        return target?.toString()?.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     };
 
     // 유틸 함수 : 로컬스토리지에 저장
@@ -334,7 +334,7 @@ const Main = () => {
                                             {e.price} {e.currency} <br/>
                                         </i>
                                         <strong>
-                                            {getCurrencyToKRW(e.price, e.currency)} 원
+                                            {setCommaOnPrice(getCurrencyToKRW(e.price, e.currency))} 원
                                         </strong>
                                         <b>현재환율 기준</b>
                                     </p>
@@ -343,7 +343,7 @@ const Main = () => {
                                             {e.deliveryFee} {e.currency} <br/>
                                         </i>
                                         <strong>
-                                            {getCurrencyToKRW(e.deliveryFee, e.currency)} 원
+                                            {setCommaOnPrice(getCurrencyToKRW(e.deliveryFee, e.currency))} 원
                                         </strong>
                                         <b>현재환율 기준</b>
                                     </p>
