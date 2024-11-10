@@ -347,13 +347,13 @@ const Main = () => {
                             {/* 부제목 */}
                             <div className="item">
                                 <p className="target">썸네일</p>
-                                <p className="target">주소</p>
                                 <p className="target">이름</p>
                                 <p className="target">가격</p>
                                 <p className="target">배송비</p>
                                 <p className="target">배대지 가격</p>
                                 <p className="target">마진</p>
                                 <p className="target">총합</p>
+                                <p className="target">기능</p>
                             </div>
                             {/* 부제목 END */}
 
@@ -361,7 +361,6 @@ const Main = () => {
                             {list.length ? list.map((e, i) =>
                                 <div className="item" key={i}>
                                     <img className="target" src={e.imgSrc} alt={e.name} />
-                                    <a className="target" href={e.address} target="_blank">바로가기</a>
                                     <p className="target">{e.name}</p>
                                     <p className="target">
                                         <i>
@@ -391,10 +390,14 @@ const Main = () => {
                                             + getCurrencyToKRW(e.price, e.currency)
                                         )} 원
                                     </p>
-                                    <ButtonComponents title={"지우기"} func={() => {
-                                        setTargetDeleteItem(e.name)
-                                        setIsNeedPopup(true)
-                                    }}/>
+                                    <div className="actions">
+                                        <a className="target" href={e.address} target="_blank">바로가기</a>
+                                        <ButtonComponents title={"지우기"} func={() => {
+                                            setTargetDeleteItem(e.name)
+                                            setIsNeedPopup(true)
+                                        }}/>
+                                    </div>
+                                    
                                 </div>
                             ) : (
                                 <div className="item no-item">

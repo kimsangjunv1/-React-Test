@@ -315,17 +315,34 @@ main {
                                 border-radius: 12px;
                             }
 
-                            a {
-                                cursor: pointer !important;
-                                text-decoration: underline;
-                            }
-
                             &.no-item {
                                 cursor: default;
                                 color: gray;
                                 opacity: 0.5;
                                 background: none;
                                 border: 1px solid gray;
+                            }
+
+                            .actions {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+                                padding: 20px;
+
+                                button,
+                                a {
+                                    cursor: pointer !important;
+                                    font-size: 14px;
+                                    border: 1px solid #61737b;
+                                    color: #61737b;
+                                    border-radius: 4px;
+                                    transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+                                    &:hover {
+                                        background: #61737b;
+                                        color: white;
+                                    }
+                                }
                             }
                         }
                     }
