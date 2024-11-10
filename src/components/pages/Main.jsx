@@ -275,6 +275,15 @@ const Main = () => {
         return sessionStorage.removeItem(target);
     };
 
+    const deleteItemOnList = (target) => {
+        console.log("지우기 시작", target);
+        const data = JSON.parse(getLocalStorage("data_note"));
+        const filteringData = data.filter(item => item.name != target);
+
+        setLocalStorage("data_note", filteringData);
+        setList(filteringData);
+    }
+
     useEffect(() => {
         let data = JSON.parse(getLocalStorage("data_note"));
         let dataCurrency = getSessionStorage("data_current_currency");
@@ -357,6 +366,7 @@ const Main = () => {
                                             + getCurrencyToKRW(e.price, e.currency)
                                         )} 원
                                     </p>
+                                    <ButtonComponents title={"지우기"} func={() => deleteItemOnList(e.name)}/>
                                 </div>
                             ) : (
                                 <div className="item no-item">
