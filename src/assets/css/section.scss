@@ -48,9 +48,9 @@ main {
                             flex-direction: column;
                             gap: 8px;
 
-                            padding: 12px;
-                            border-radius: 8px;
-                            border: 1px solid #f3f5f6;
+                            // padding: 12px;
+                            // border-radius: 8px;
+                            // border: 1px solid #f3f5f6;
 
                             input {
                                 text-align: left;
@@ -61,6 +61,13 @@ main {
                                 border: none;
                                 border: 1px solid rgb(128 128 128 / 41%);
                                 font-size: 14px;
+                                transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+                                box-shadow: 0 0 0px 0px #eceff0;
+
+                                &:hover {
+                                    border-color: #4f7aff;
+                                    box-shadow: 0 0 0px 4px #eceff0;
+                                }
                             }
 
                             .divide {
@@ -102,6 +109,11 @@ main {
                                     border-radius: 8px;
                                     color: #61737b;
                                 }
+                            }
+
+                            &:nth-of-type(2) {
+                                border-top: 1px dotted #99a8ad;
+                                padding-top: 16px;
                             }
                         }
 
