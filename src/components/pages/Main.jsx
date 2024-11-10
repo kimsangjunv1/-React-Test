@@ -94,16 +94,6 @@ const Main = () => {
             return final;
         }
     }
-    
-    // 함수 : 순수 숫자로 변환
-    const setNumber = (target) => {
-        return Number(target);
-    }
-
-    // 함수 : 입력한 금액을 기준으로 환율을 적용해 환산한 값을 반환
-    const calcCurrency = (currency, amount = 1) => {
-        return amount / currency;
-    }
 
     // 함수 : state 값 채워졌는지 확인
     const checkStateValue = () => {
@@ -122,35 +112,6 @@ const Main = () => {
     // 함수 : 값이 존재하는지
     const isVisible = (target) => {
         return target ? true : false;
-    };
-
-    // 함수 : 천단위 콤마
-    const setCommaOnPrice = (target) => {
-        return target.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    };
-
-    // 함수 : 로컬스토리지에 저장
-    const setLocalStorage = (name, data) => {
-        return localStorage.setItem(name, JSON.stringify(data));
-    };
-
-    const setSessionStorage = (name, data) => {
-        return sessionStorage.setItem(name, JSON.stringify(data));
-    };
-
-    // 함수 : 로컬스토리지에서 가져오기
-    const getLocalStorage = (target) => {
-        return localStorage.getItem(target);
-    };
-
-    // 함수 : 세션스토리지에서 가져오기
-    const getSessionStorage = (target) => {
-        return sessionStorage.getItem(target);
-    };
-
-    // 함수 : 세션스토리지에서 특정 키 값 지우기
-    const removeSessionStorage = (target) => {
-        return sessionStorage.removeItem(target);
     };
 
     // 함수 : 받은 데이터 가공
@@ -262,6 +223,46 @@ const Main = () => {
             },
         ]
     }
+
+    // 유틸 함수 : 순수 숫자로 변환
+    const setNumber = (target) => {
+        return Number(target);
+    }
+
+    // 유틸 함수 : 입력한 금액을 기준으로 환율을 적용해 환산한 값을 반환
+    const calcCurrency = (currency, amount = 1) => {
+        return amount / currency;
+    }
+
+    // 유틸 함수 : 천단위 콤마
+    const setCommaOnPrice = (target) => {
+        return target.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    // 유틸 함수 : 로컬스토리지에 저장
+    const setLocalStorage = (name, data) => {
+        return localStorage.setItem(name, JSON.stringify(data));
+    };
+
+    // 유틸 함수 : 세션스토리지에 저장
+    const setSessionStorage = (name, data) => {
+        return sessionStorage.setItem(name, JSON.stringify(data));
+    };
+
+    // 유틸 함수 : 로컬스토리지에서 가져오기
+    const getLocalStorage = (target) => {
+        return localStorage.getItem(target);
+    };
+
+    // 유틸 함수 : 세션스토리지에서 가져오기
+    const getSessionStorage = (target) => {
+        return sessionStorage.getItem(target);
+    };
+
+    // 유틸 함수 : 세션스토리지에서 특정 키 값 지우기
+    const removeSessionStorage = (target) => {
+        return sessionStorage.removeItem(target);
+    };
 
     useEffect(() => {
         let data = JSON.parse(getLocalStorage("data_note"));
