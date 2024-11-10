@@ -75,6 +75,7 @@ const Main = () => {
 
             setSessionStorage("data_current_currency", mapping);
             setSessionStorage("data_current_currency_date", date);
+
             setCurrencyList(mapping);
             setCurrencyListDate(date);
         } else {
@@ -224,6 +225,16 @@ const Main = () => {
         ]
     }
 
+    // 함수 : 새로고침
+    const refreshCurrencyList = () => {
+        console.log("새로고침 시작");
+        removeSessionStorage("data_current_currency");
+        removeSessionStorage("data_current_currency_date");
+
+        setCurrencyList([]);
+        getCurrentCurrency();
+    }
+
     // 유틸 함수 : 순수 숫자로 변환
     const setNumber = (target) => {
         return Number(target);
@@ -365,24 +376,31 @@ const Main = () => {
 
                             <ButtonComponents title={"확인"} func={(e) => setOnList()}/>
 
-                            {/* 간단한 환율 계산 폼 */}
-                            <div className="example">
-                                <div className="divide">
-                                    <InputComponents type={"number"} placeholder={"환율"} func={(e) => setExamplePrice(e.target.value)} />
-                                    {currencyList && <SelectComponents data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setExampleCurrency(e ? e : 0)} />}
-                                </div>
-                                {exampleCurrency ? (
-                                    <Fragment>
-                                        <p>{setCommaOnPrice(getCurrencyToKRW(examplePrice, exampleCurrency))} 원</p>
-                                    </Fragment>
-                                 ) : (
-                                    <Fragment>
-                                        <p>환율을 선택해주세요.</p>
-                                    </Fragment>
-                                 )}
-                                 <p>환율 DB : {currencyListDate}</p>
-                            </div>
-                            {/* 간단한 환율 계산 폼 END */}
+                            {currencyList.length ? 
+                                <Fragment>
+                                    {/* 간단한 환율 계산 폼 */}
+                                    <div className="example">
+                                        <div className="divide">
+                                            <InputComponents type={"number"} placeholder={"환율"} func={(e) => setExamplePrice(e.target.value)} />
+                                            {currencyList && <SelectComponents data={currencyList} placeholder={"통화 선택"} id={"currency"} func={(e) => setExampleCurrency(e ? e : 0)} />}
+                                        </div>
+                                        {exampleCurrency ? (
+                                            <Fragment>
+                                                <p>{setCommaOnPrice(getCurrencyToKRW(examplePrice, exampleCurrency))} 원</p>
+                                            </Fragment>
+                                         ) : (
+                                            <Fragment>
+                                                <p>환율을 선택해주세요.</p>
+                                            </Fragment>
+                                         )}
+                                         <p>환율 DB : {currencyListDate}</p>
+                                    </div>
+                                    {/* 간단한 환율 계산 폼 END */}
+        
+                                    <ButtonComponents title={"최신 환율정보 가져오기"} func={(e) => refreshCurrencyList()}/>
+                                </Fragment> 
+                                : "환율 정보를 가져오고 있어요.."
+                            }
                         </section>
                         {/* 섹션 : 입력 END */}
                     </section>
